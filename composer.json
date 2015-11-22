@@ -16,7 +16,10 @@
     },
     "autoload": {
         "classmap": [
-            "database"
+            "database",
+            "app/Models",
+            "app/Vyvian",
+            "app/Utilities"
         ],
         "psr-4": {
             "App\\": "app/"
