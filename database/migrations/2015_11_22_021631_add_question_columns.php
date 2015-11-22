@@ -19,7 +19,7 @@ class AddQuestionColumns extends Migration
             $table->integer('phase_id')->unsigned();
             $table->integer('sequence_number');
             $table->longText('blurb_data');
-            $table->integer('parent_id')->unsigned();
+            $table->integer('parent_id')->unsigned()->nullable();
 
         });
 
