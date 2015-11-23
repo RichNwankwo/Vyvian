@@ -14,11 +14,11 @@ class AddQuestionColumns extends Migration
     {
         Schema::table('question', function(Blueprint $table){
 
-            $table->string('question_text');
-            $table->string('question_type');
-            $table->integer('phase_id')->unsigned();
-            $table->integer('sequence_number');
-            $table->longText('blurb_data');
+            $table->string('question_text')->nullable();
+            $table->string('question_type')->nullable();
+            $table->integer('phase_id')->unsigned()->nullable();
+            $table->integer('sequence_number')->nullable();
+            $table->longText('blurb_data')->nullable();
             $table->integer('parent_id')->unsigned()->nullable();
 
         });

@@ -44,7 +44,15 @@ return [
     |
     */
 
+    'default' => env('DB_DEFAULT', 'mysql'),
+
     'connections' => [
+
+        'sqlite_testing' => [
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+            'prefix'   => '',
+        ],
 
         'sqlite' => [
             'driver'   => 'sqlite',

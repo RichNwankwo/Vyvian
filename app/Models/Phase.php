@@ -12,7 +12,7 @@ class Phase extends Model
 
     public function questions()
     {
-        $this->hasMany('app\Models\question');
+        return $this->hasMany('App\Model\Question');
     }
     
 }

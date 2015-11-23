@@ -15,9 +15,9 @@ class AddAnswerColumns extends Migration
         //
         Schema::table('answer', function(Blueprint $table){
 
-            $table->integer('user_id')->unsigned();
-            $table->integer('question_id')->unsigned();
-            $table->string('answer');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('question_id')->unsigned()->nullable();
+            $table->string('answer')->nullable();
 
         });
 

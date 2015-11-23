@@ -14,8 +14,8 @@ class AddQuestionOptionColumns extends Migration
     {
         Schema::table('question_option', function(Blueprint $table){
 
-            $table->integer('question_id')->unsigned();
-            $table->string('answer_text');
+            $table->integer('question_id')->unsigned()->nullable();
+            $table->string('answer_text')->nullable();
 
         });
 

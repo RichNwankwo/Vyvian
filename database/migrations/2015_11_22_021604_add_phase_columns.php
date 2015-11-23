@@ -14,7 +14,7 @@ class AddPhaseColumns extends Migration
     {
         Schema::table('phase', function(Blueprint $table){
 
-            $table->string('phase');
+            $table->string('phase')->nullable();
 
         });
     }

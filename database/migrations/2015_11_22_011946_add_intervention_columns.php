@@ -14,8 +14,8 @@ class AddInterventionColumns extends Migration
     {
         Schema::table('intervention', function(Blueprint $table){
 
-            $table->integer('user_id')->unsigned();
-            $table->integer('phase_id')->unsigned();
+            $table->integer('user_id')->nullable()->unsigned();
+            $table->integer('phase_id')->nullable()->unsigned();
 
         });
 
