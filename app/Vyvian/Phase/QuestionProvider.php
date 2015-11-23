@@ -14,5 +14,10 @@ class QuestionProvider implements  QuestionProviderInterface {
         return Question::where('phase_id', '=', $phase_id)->orderBy('sequence_number')->get();
     }
 
+    public function getChildQuestions($question_id)
+    {
+        return Question::where('parent_id', '=', $question_id)->orderBy('sequence_number')->get();
+    }
+
 
 } 

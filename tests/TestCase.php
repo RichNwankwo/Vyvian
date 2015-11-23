@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -16,10 +20,18 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     public function createApplication()
     {
+        putenv('DB_DEFAULT=sqlite_testing');
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
     }
+
+    public function setUp()
+    {
+        parent::setUp();
+        Artisan::call('migrate');
+    }
+
 }

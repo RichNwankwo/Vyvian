@@ -1,50 +1,54 @@
 <?php
 
 use app\Vyvian\Phase\QuestionProvider;
-use app\Model\Question;
+use App\Model\Question;
+use App\Model\Phase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PhaseQuestionSelectorTest extends TestCase {
 
-    public function setUp()
-    {
-        parent::setUp();
-        Artisan::call('migrate');
-    }
+    use DatabaseTransactions;
+
 
     public function testIf_question_provider_returns_questions()
     {
-        //arrange
+        // Get our provider
         $question_selector = new QuestionProvider();
-        foreach(range(1,4) as $row)
+
+        // create random phase
+        $phase_id = rand(1,5);
+        // create 1/2 dummy data and 1/2 wanted data
+        $phase_wanted = factory(App\Model\Phase::class)->create(['id' => $phase_id]);
+        $phase_not_wanted = factory(App\Model\Phase::class)->create(['id' => 777]);
+        $number_of_questions = rand(1,10);
+        $counter = $number_of_questions;
+        while($counter > 0)
         {
-            DB::table('question')->insert([
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-                'question_text'=> str_random(50),
-                'phase_id' => rand(1,10),
-                'sequence_number' => rand(1,5),
-                'blurb_data' => str_random(200),
-                'parent_id' => rand(1, 40)
-            ]);
+            $phase_wanted->questions()->save(factory(App\Model\Question::class)->make());
+            $phase_not_wanted->questions()->save(factory(App\Model\Question::class)->make());
+            $counter--;
         }
 
-        $phase11 = [
-            ['question_text' => 'This is for phase 11', 'phase_id' => 11, 'sequence_number' => 1],
-            ['question_text' => 'This is for phase 11', 'phase_id' => 11, 'sequence_number' => 2],
-            ['question_text' => 'This is for phase 11', 'phase_id' => 11, 'sequence_number' => 3],
-            ['question_text' => 'This is for phase 11', 'phase_id' => 11, 'sequence_number' => 4],
-        ];
+        // call method
+        $wanted_questions = $question_selector->getPhaseQuestions($phase_id);
 
-        Question::insert($phase11);
+        // assert we get our desired result set
+        $this->assertEquals($number_of_questions, count($wanted_questions));
+        $this->assertEquals(count($wanted_questions)*2 , count(Question::all()));
 
-        $phase_questions = $question_selector->getPhaseQuestions(11);
+    }
 
-        $this->assertEquals($phase11, $phase_questions);
+    public function testIf_child_questions_are_returned()
+    {
+        $question_selector = new QuestionProvider();
+        $parent_question = factory(App\Model\Question::class)->create(['id' => 116]);
+        $dummy_qustions = factory(App\Model\Question::class, 6)->create();
+        $child_question = factory(App\Model\Question::class, 5)->create(['parent_id' => 116]);
+        $result = $question_selector->getChildQuestions(116);
+        $this->assertEquals(count($result), count($child_question));
 
-
-
-
-        //assert
     }
 
 }
