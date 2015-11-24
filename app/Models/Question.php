@@ -11,17 +11,17 @@ class Question extends Model
 
     public function answer()
     {
-        $this->hasManyThrough('App\Model\Answer', 'App\Model\User');
+        return $this->hasManyThrough('App\Model\Answer', 'App\Model\User');
     }
 
     public function question_options()
     {
-        $this->hasMany('App\Model\Question_Option');
+        return $this->hasMany('App\Model\Question_Option');
     }
 
     public function question_flows()
     {
-        return $this->belongsToMany('App\Model\Question_Option', 'question_flow','question_id', 'option_id');
+        return $this->belongsToMany('App\Model\Question_Option', 'question_flow','question_id', 'option_id')->withTimestamps();;
     }
 
 

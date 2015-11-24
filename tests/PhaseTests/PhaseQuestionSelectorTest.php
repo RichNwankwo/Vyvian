@@ -1,6 +1,6 @@
 <?php
 
-use app\Vyvian\Phase\QuestionProvider;
+use App\Vyvian\Phase\QuestionProvider;
 use App\Model\Question;
 use App\Model\Phase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

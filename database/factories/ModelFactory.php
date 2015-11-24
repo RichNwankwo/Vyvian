@@ -45,3 +45,9 @@ $factory->define(App\Model\Question::class, function(Faker\Generator $faker){
         'sequence_number' => rand(1,10)
     ];
 });
+
+$factory->define(App\Model\Question_Option::class, function(Faker\Generator $faker){
+    return [
+        'answer_text' => $faker->sentence(15)
+    ];
+});

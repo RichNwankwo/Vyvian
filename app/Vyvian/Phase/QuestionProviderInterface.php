@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\Vyvian\Phase;
+namespace App\Vyvian\Phase;
 
 
 interface QuestionProviderInterface {
