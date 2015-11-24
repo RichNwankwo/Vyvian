@@ -16,9 +16,9 @@ class CreateQuestionFlowTable extends Migration
         Schema::create('question_flow', function(Blueprint $table){
 
             $table->increments('id');
-            $table->integer('question_id')->unsigned();
-            $table->integer('option_id')->unsigned();
-            $table->integer('next_question_id')->unsigned();
+            $table->integer('question_id')->unsigned()->index();
+            $table->integer('option_id')->unsigned()->index();
+            $table->integer('next_question_id')->unsigned()->index();
             $table->nullableTimestamps();
 
 
